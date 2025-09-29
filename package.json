@@ -1,0 +1,19 @@
+{
+  "name": "simplest-ytdl-ui",
+  "version": "1.0.0",
+  "description": "A simple YouTube download UI with Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev"
+  },
+  "engines": {
+    "node": "22.18.0"
+  },
+  "keywords": ["electron", "youtube", "download"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.3.1"
+  }
+}
