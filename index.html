@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Downloader</title>
     <style>
@@ -29,13 +29,6 @@
             padding: 40px;
             width: 100%;
             max-width: 600px;
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5em;
         }
 
         .input-group {
@@ -71,6 +64,7 @@
 
         .path-container input[type="text"] {
             flex: 1;
+            cursor: pointer;
         }
 
         #browseBtn {
@@ -84,6 +78,7 @@
             cursor: pointer;
             transition: all 0.3s;
             white-space: nowrap;
+            width: 100px;
         }
 
         #browseBtn:hover {
@@ -144,15 +139,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Simplest ytdl UI</h1>
-
         <div class="input-group">
-            <label for="url">URL :</label>
-            <input type="text" id="url" placeholder="https://www.youtube.com/watch?v=...">
+            <label for="url">YouTube URL</label>
+            <input type="text" id="url" placeholder="Paste here (ex. https://www.youtube.com/watch?v=...)">
         </div>
 
         <div class="input-group">
-            <label for="savePath">Save Path :</label>
+            <label for="savePath">Save to ...</label>
             <div class="path-container">
                 <input type="text" id="savePath" placeholder="Select folder to save downloaded files" readonly>
                 <button id="browseBtn" type="button">Browse</button>
@@ -161,7 +154,7 @@
 
         <button id="downloadBtn">Download!</button>
 
-        <div id="status">Ready to download</div>
+        <div id="status"></div>
     </div>
 
     <script src="renderer.js"></script>

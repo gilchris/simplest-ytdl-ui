@@ -21,18 +21,21 @@ function updateStatus(message, type = 'info') {
     }
 }
 
-browseBtn.addEventListener('click', async () => {
+async function openFolderDialog() {
     try {
         const result = await ipcRenderer.invoke('open-folder-dialog');
         if (result && !result.canceled && result.filePaths.length > 0) {
             savePathInput.value = result.filePaths[0];
-            updateStatus('Folder selected successfully', 'success');
+            checkValidationStatus();
         }
     } catch (error) {
         updateStatus('Error selecting folder', 'error');
         console.error('Folder selection error:', error);
     }
-});
+}
+
+browseBtn.addEventListener('click', openFolderDialog);
+savePathInput.addEventListener('click', openFolderDialog);
 
 downloadBtn.addEventListener('click', async () => {
     const url = urlInput.value.trim();
@@ -77,11 +80,39 @@ function isValidYouTubeUrl(url) {
     return patterns.some(pattern => pattern.test(url));
 }
 
+function checkValidationStatus() {
+    const url = urlInput.value.trim();
+    const savePath = savePathInput.value.trim();
+
+    if (!url) {
+        updateStatus('Please enter a YouTube URL', 'error');
+        return;
+    }
+
+    if (!isValidYouTubeUrl(url)) {
+        updateStatus('Please enter a valid YouTube URL', 'error');
+        return;
+    }
+
+    if (!savePath) {
+        updateStatus('Please select a save location', 'error');
+        return;
+    }
+
+    updateStatus('Ready to download', 'success');
+}
+
+urlInput.addEventListener('input', checkValidationStatus);
 urlInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         downloadBtn.click();
     }
 });
+
+savePathInput.addEventListener('input', checkValidationStatus);
+
+// Initial validation check when page loads
+checkValidationStatus();
 
 console.log('Renderer process loaded');
 console.log('Node.js version:', process.versions.node);
