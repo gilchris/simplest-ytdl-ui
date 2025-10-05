@@ -2,3 +2,4 @@
 dist/
 node_modules/
 .vscode/
+.claude/settings.local.json

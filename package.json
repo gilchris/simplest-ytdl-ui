@@ -47,7 +47,7 @@
       }
     ],
     "win": {
-      "target": "nsis",
+      "target": "portable",
       "icon": "icon.png"
     },
     "linux": {
@@ -57,10 +57,6 @@
     "mac": {
       "target": "dmg",
       "icon": "icon.png"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
     }
   }
 }

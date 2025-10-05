@@ -55,7 +55,14 @@ ipcMain.handle('open-folder-dialog', async () => {
 function getYoutubeDlPath() {
     const isWindows = os.platform() === 'win32';
     const binaryName = isWindows ? 'youtube-dl.exe' : 'youtube-dl';
-    return path.join(__dirname, 'ytdl', binaryName);
+
+    // In production (packaged app), ytdl is in resources/ytdl
+    // In development, ytdl is in the project root
+    if (app.isPackaged) {
+        return path.join(process.resourcesPath, 'ytdl', binaryName);
+    } else {
+        return path.join(__dirname, 'ytdl', binaryName);
+    }
 }
 
 ipcMain.handle('download-video', async (event, url, savePath) => {
